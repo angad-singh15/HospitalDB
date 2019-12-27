@@ -1,50 +1,35 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // The request is using the POST method
-
 require 'dbcheck.inc.php';
+$PatientID = $_POST['PatientID'];
+$AppointmentID = rand(1, 99999);
+$DoctorName = $_POST['DoctorName'];
+$AppointmentTime = $_POST['AppointmentTime'];
+$AppointmentDate = $_POST['AppointmentDate'];
+$AppointmentTypeID = $_POST['AppointmentTypeID'];
+// TODO: add appointment type
 
-@$PatientID = $_POST['PatientID'];
-@$First = $_POST['First'];
-@$Last = $_POST['Last'];
-@$SSN = $_POST['SSN'];
-@$Gender = $_POST['Gender'];
-@$Phone = $_POST['Phone'];
-@$Street = $_POST['Street'];
-@$City = $_POST['City'];
-@$State = $_POST['State'];
-@$ZipCode = $_POST['ZipCode'];
-@$Date_Of_Birth = $_POST['Date_Of_Birth'];
-@$Dept_ID = $_POST['Dept_ID'];
+if (!empty($PatientID) || !empty($AppointmentID) || !empty($DoctorName) || !empty($AppointmentTime || !empty($AppointmentDate)) || !empty($AppointmentTypeID)){
 
-if (!empty($PatientID) || !empty($First) || !empty($Last) || !empty($SSN) || !empty($Gender) || !empty($Phone)|| !empty($Street)|| !empty($City)|| !empty($State)|| !empty($ZipCode)
-	|| !empty($Date_Of_Birth)|| !empty($Dept_ID)){
-    
-    
-     $INSERT = "INSERT Into patient 
-     (PatientID, First, Last, SSN, Gender, Phone, Street, City, State, ZipCode, Date_Of_Birth, Dept_ID ) 
-     values('$PatientID', '$First', '$Last', '$SSN', '$Gender', '$Phone', '$Street', '$City', '$State', '$ZipCode', '$Date_Of_Birth', '$Dept_ID')";
+     $INSERT = "INSERT Into Appointment 
+     (AppointmentID, Type_ID, Doctor_name, Appointment_time, Appointment_date, Appt_Patient_ID) 
+     values('$AppointmentID', '$AppointmentTypeID', '$DoctorName', '$AppointmentTime', '$AppointmentDate', '$PatientID')";
     
      
      if(mysqli_query($conn, $INSERT)){
-         echo "Records added successfully.";
-         //header("Location: http://localhost:8888/hospital");
-         header( "refresh:3;url=index.php" );
+         echo "Appointment added successfully.";
+         header( "refresh:3;url=appointments.php" );
          exit();
-         
-
      } else{
          echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
      }
     
-} 
-else {
+} else {
 	echo "All field are required";
  die();
 }
-
 }
-
 else
 {
     $dir_path = "img/";

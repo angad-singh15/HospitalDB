@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Local Hospital</title>
+  <title>North Star Hospital</title>
 
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
@@ -9,58 +9,6 @@
   <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
 
-<?php
-
-// php code to Insert data into mysql database from input text
-if(isset($_POST['submit']))
-{
-    $hostname = "localhost";
-    $username = "root";
-    $password = "";
-    $databaseName = "patient";
-    
-    // get values form input text and number
-
-	$PatientID = $_POST['PatientID'];
-	$First = $_POST['First'];
-	$Last = $_POST['Last'];
-	$SSN = $_POST['SSN'];
-	$Gender = $_POST['Gender'];
-	$Phone = $_POST['Phone'];
-	$Street = $_POST['Street'];
-	$City = $_POST['City'];
-	$State = $_POST['State'];
-	$ZipCode = $_POST['ZipCode'];
-	$Date_Of_Birth = $_POST['Date_Of_Birth'];
-	$Dept_ID = $_POST['Dept_ID'];
-		
-    // connect to mysql database using mysqli
-
-    $connect = mysqli_connect($hostname, $username, $password, $databaseName);
-    
-    // mysql query to insert data
-
-    $query = "NSERT Into patient (PatientID, First, Last, SSN, Gender, Phone, Street, City, State, ZipCode, Date_Of_Birth, Dept_ID ) 
-	values('$PatientID','$First','$Last','$SSN','$Gender','$Phone,'$Street','$City','$State','$ZipCode','$Date_Of_Birth','$Dept_ID')";
-    
-    $result = mysqli_query($connect,$query);
-    
-    // check if mysql query successful
-
-    if($result)
-    {
-        echo 'Data Inserted';
-    }
-    
-    else{
-        echo 'Data Not Inserted';
-    }
-    
-    mysqli_free_result($result);
-    mysqli_close($connect);
-}
-
-?>
 
 </head>
 
@@ -74,13 +22,13 @@ if(isset($_POST['submit']))
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.php">Local<span>Hospital</span></a>
+        <a class="navbar-brand" href="index.php">North Star <span>Hospital</span></a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
           <li><a href="addpatient.php">Add Patient</a></li>
           <li><a href="availabledoctors.php">Available Doctors</a></li>
-          <li><a href="appointments.php">Appointments</a></li>
+          <li><a href="appointments.php">Manage Appointments</a></li>
 		  <li><a href="addappointment.php">Add Appointment</a></li>
         </ul>
       </div>
@@ -93,13 +41,13 @@ if(isset($_POST['submit']))
 
 <h1>Add New Patient<h1>
 
-<form action="addpatient.php" method="POST">
+<form action="insertpatient.php" method="POST">
   <table>
   
   
    <tr>
     <td>Patient ID :</td>
-    <td><p id="PatientID"</p></td>
+    <td><input id = "PatientID" type="int" name="PatientID" required></td>
    </tr>
    
    
@@ -131,8 +79,8 @@ if(isset($_POST['submit']))
    
     <td>Gender :</td>
     <td>
-     <input type="radio" name="Gender" value="m" required>Male
-     <input type="radio" name="Gender" value="f" required>Female
+     <input type="radio" name="Gender" value="M" required>Male
+     <input type="radio" name="Gender" value="F" required>Female
     </td>
    </tr>
    <tr>
@@ -220,13 +168,13 @@ if(isset($_POST['submit']))
     <td>Dept ID :</td>
     <td>
      <select name="Dept_ID" required>
-      <option selected hidden value="deptid">Select Code</option>
-      <option value="1">ID 1 Info</option>
-      <option value="2">ID 2 Info</option>
-      <option value="3">ID 3 Info</option>
-      <option value="4">ID 4 Info</option>
-      <option value="5">ID 5 Info</option>
-      <option value="6">ID 6 Info</option>
+      <option selected hidden value="deptid">Select Department</option>
+      <option value="1">Cancer</option>
+      <option value="2">Cardiology</option>
+      <option value="3">Neurology</option>
+      <option value="4">Intensive Care</option>
+      <option value="5">Emergency</option>
+      <option value="6">Maternity</option>
      </select>
     </td>
    </tr>
@@ -240,7 +188,7 @@ if(isset($_POST['submit']))
 
 
 <script>
-document.getElementById("PatientID").innerHTML =
+document.getElementById("PatientID").value =
 Math.floor(Math.random() * 999999);
 </script>
 
